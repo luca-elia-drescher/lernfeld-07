@@ -33,7 +33,6 @@ void loop() {
   lcd.print(" C ");
 
   if (temp >= criticalTemp) {
-
     digitalWrite(beeper, HIGH);
     delay(1000);
     digitalWrite(beeper, LOW);
@@ -42,23 +41,18 @@ void loop() {
     digitalWrite(red, HIGH);
     digitalWrite(yellow, LOW);
     digitalWrite(green, LOW);
-
   } else if (temp >= (criticalTemp - 5)) {
-    
     digitalWrite(beeper, LOW);
 
     digitalWrite(red, LOW);
     digitalWrite(yellow, HIGH);
     digitalWrite(green, LOW);
-
   } else {
-
     digitalWrite(beeper, LOW);
 
     digitalWrite(red, LOW);
     digitalWrite(yellow, LOW);
     digitalWrite(green, HIGH);
-
   }
 
   Serial.println(voltage); 
