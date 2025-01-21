@@ -6,7 +6,8 @@ const char* password = "passwort123";
 WiFiServer server(80);
 String header;
 String ledState = "off";
-int led = 2;
+
+const int led = 2;
 
 void setup() {
   Serial.begin(9600);
