@@ -25,6 +25,9 @@ void setup() {
 }
 
 void loop() {
+  float analogData = analogRead(A0);
+  Serial.println(analogData);
+
   WiFiClient client = server.available();
 
   if (client) {
@@ -81,4 +84,6 @@ void loop() {
     Serial.println("Client getrennt.");
     Serial.println("");
   }
+
+  delay(500);
 }
