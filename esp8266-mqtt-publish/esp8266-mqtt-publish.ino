@@ -29,11 +29,20 @@ void loop() {
     if (!client.connected()) {
         while (!client.connected()) {
             client.connect("ESP8266Client");
-            Serial.println("Mit Broker verbunden");
-            delay(100);
+            Serial.println("broker connected");
+
+                char msg[20]; 
+                sprintf(msg, "Luca: %d", counter); 
+
+                client.publish("/test/counter-test", msg);
+                Serial.println(msg);
+
+                counter++;
+
+            delay(2000);
         }
     }
     client.loop();
 
-    client.publish("/test/test-topic", "Luca sagt Hallo!");
+    delay(2000);
 }
