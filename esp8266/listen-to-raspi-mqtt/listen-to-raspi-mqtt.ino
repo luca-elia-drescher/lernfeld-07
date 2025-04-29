@@ -6,7 +6,7 @@ const char* SSID = "IT-Berufe";
 const char* PSK = "79235686";
 
 // MQTT broker details
-const char* MQTT_BROKER = "broker.hivemq.com"; // Public MQTT broker address
+const char* MQTT_BROKER = "192.168.1.104"; // Public MQTT broker address
 int counter = 0; // Counter variable 
 
 // Create WiFi and MQTT client objects
@@ -42,7 +42,7 @@ void loop() {
   if (!client.connected()) {  // Check if the MQTT client is connected
     while (!client.connected()) { 
       client.connect("ESP8266ClientLuca"); // Attempt to connect to MQTT broker
-      client.subscribe("/test/test/luca"); // Subscribe to the specified topic
+      client.subscribe("pel/test"); // Subscribe to the specified topic
       Serial.println("broker connected"); // Print connection status
       delay(100);
     }
