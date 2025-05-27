@@ -25,6 +25,9 @@ const int DHTPin = 5;
 // Lamp - LED - GPIO 4 = D2 on ESP-12E NodeMCU board
 const int lamp = 2;
 
+// External LED - GPIO 4 = D2 on ESP-12E NodeMCU board
+const int extLED = 4;
+
 // Initialize DHT sensor.
 DHT dht(DHTPin, DHTTYPE);
 
@@ -68,12 +71,23 @@ void callback(String topic, byte* message, unsigned int length) {
 
   // If a message is received on the topic room/lamp, you check if the message is either on or off. Turns the lamp GPIO according to the message
   if (topic == "raum/LED") {
-    Serial.print("Changing Room lamp to ");
+    Serial.print("Changing ESP-internal LED to ");
     if (messageTemp == "on") {
       digitalWrite(lamp, HIGH);
       Serial.print("On");
     } else if (messageTemp == "off") {
       digitalWrite(lamp, LOW);
+      Serial.print("Off");
+    }
+  }
+
+  if (topic == "raum/LED2") {
+    Serial.print("Changing external LED to ");
+    if (messageTemp == "on") {
+      digitalWrite(extLED, HIGH);
+      Serial.print("On");
+    } else if (messageTemp == "off") {
+      digitalWrite(extLED, LOW);
       Serial.print("Off");
     }
   }
@@ -103,6 +117,7 @@ void reconnect() {
       // Subscribe or resubscribe to a topic
       // You can subscribe to more topics (to control more LEDs in this example)
       client.subscribe("raum/LED");
+      client.subscribe("raum/LED2");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -118,6 +133,7 @@ void reconnect() {
 // The callback function is what receives messages and actually controls the LEDs
 void setup() {
   pinMode(lamp, OUTPUT);
+  pinMode(extLED, OUTPUT);
 
   dht.begin();
 
